@@ -41,7 +41,7 @@ extern W_TCB* gpstrTask2Tcb;
 //TASK FUNCTION
 extern W_TCB* WLX_TaskInit(VFUNC vfFunctionPointer, U32* puiTaskStack);
 extern W_TCB* WLX_TaskSwitch(void);
-extern W_TCB* WLX_TaskStart(void);
+extern void WLX_TaskStart(void);
 
 
 #endif // WANLIX_H

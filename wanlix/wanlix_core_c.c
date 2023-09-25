@@ -34,3 +34,45 @@ W_TCB* WLX_TaskInit(VFUNC vfFunctionPointer, U32* puiTaskStack)
 
     return ptcbTcb;
 }
+
+W_TCB *WLX_TaskSwitch(void)
+{
+    STACKREG* pstrCurTaskStackRegAddr;
+    STACKREG* pstrNextTaskStackRegAddr;
+
+    if(1 == guiCurTask)
+    {
+        //当前任务的寄存器地址
+        pstrCurTaskStackRegAddr = &gpstrTask1Tcb->strStackReg;
+
+        //即将运行任务的寄存器组的地址
+        pstrNextTaskStackRegAddr = &gpstrTask2TCB->strStackReg;
+
+        //更新下次运行的任务
+        guiCurTask = 2;
+    }
+    else
+    {
+        pstrCurTaskStackRegAddr = &gpstrTask1Tcb->strStackReg;
+        pstrNextTaskStackRegAddr = &gpstrTask2TCB->strStackReg;
+        guiCurTask = 1;
+    }
+
+    WLX_ContextSwitch(pstrCurTaskStackRegAddr, pstrNextTaskStackRegAddr);
+}
+
+/// @brief 将初始化的寄存器组进行恢复
+/// @param  
+void WLX_TaskStart(void)
+{
+    STACKREG* pstrNextTaskStackRegAddr;
+    
+    //即将运行任务寄存器组的地址
+    pstrNextTaskStackRegAddr = &gpstrTask1Tcb->strStackReg;
+    //更新下次调度的任务
+    guiCurTask = 1;
+
+    //切换到任务状态
+    WLX_SwitchToTask(pstrNextTaskStackRegAddr);
+
+}
