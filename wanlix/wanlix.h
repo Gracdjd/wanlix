@@ -8,7 +8,7 @@ typedef unsigned int U32;
 typedef char U8;
 typedef short S16;
 typedef int S32;
-typedef void (*VFUNC)void;
+typedef void (*VFUNC)(void);
 
 typedef struct stackreg
 {
@@ -35,8 +35,8 @@ typedef struct w_tcb
 }W_TCB;
 
 //TASK
-extern W_TCB* gpTask1Tcb;
-extern W_TCB* gpTask2Tcb;
+extern W_TCB* gpstrTask1Tcb;
+extern W_TCB* gpstrTask2Tcb;
 
 //TASK FUNCTION
 extern W_TCB* WLX_TaskInit(VFUNC vfFunctionPointer, U32* puiTaskStack);
